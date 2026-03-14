@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import logo from "@/assets/images/5c8986ece2f57565fb099eb11a2b86e50d4009c3.png";
+import logo from "../../assets/images/5c8986ece2f57565fb099eb11a2b86e50d4009c3.png";
 
 export function Login() {
   const [showPassword, setShowPassword] = useState(false);

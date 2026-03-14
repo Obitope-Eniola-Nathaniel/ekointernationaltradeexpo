@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
-import logo from "@/assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 
 export function AdminLogin() {
   const navigate = useNavigate();

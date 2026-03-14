@@ -1,11 +1,11 @@
 import { Building2, Target, Users, Award, TrendingUp, Globe, Handshake, Check, Factory, Briefcase, Globe2, Landmark, DollarSign, UserCheck, Phone } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import eventPoster from "@/assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
-import logoImage from "@/assets/images/686dfd60960f5ec6fb7b20566eaeb8cd432e3f97.png";
-import logo from "@/assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
-import heroBackground from "@/assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
-import henryImage from "@/assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
+import eventPoster from "../../assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
+import logoImage from "../../assets/images/686dfd60960f5ec6fb7b20566eaeb8cd432e3f97.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import henryImage from "../../assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
 import { Link } from "react-router";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 

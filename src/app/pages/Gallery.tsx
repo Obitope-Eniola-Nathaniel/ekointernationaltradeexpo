@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { X, ZoomIn } from "lucide-react";
-import logo from "@/assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
-import heroBackground from "@/assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
-import eventPoster from "@/assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import eventPoster from "../../assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
 import { Link } from "react-router";
 import { motion } from "motion/react";
 

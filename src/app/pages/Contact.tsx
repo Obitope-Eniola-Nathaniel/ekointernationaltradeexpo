@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
-import logo from "@/assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
-import heroBackground from "@/assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
 import { Link } from "react-router";
 
 export function Contact() {

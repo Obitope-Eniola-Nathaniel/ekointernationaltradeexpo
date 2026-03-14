@@ -1,8 +1,8 @@
-import logo from "@/assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
-import heroBackground from "@/assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
-import henryImage from "@/assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
-import reginaImage from "@/assets/images/64f840094eb57bd45c7f3516c3f86bc1e5792961.png";
-import fatokiImage from "@/assets/images/fa9a28c12456029b49ef79c17c4f54bedb071111.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import henryImage from "../../assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
+import reginaImage from "../../assets/images/64f840094eb57bd45c7f3516c3f86bc1e5792961.png";
+import fatokiImage from "../../assets/images/fa9a28c12456029b49ef79c17c4f54bedb071111.png";
 import { Link } from "react-router";
 
 export function Team() {

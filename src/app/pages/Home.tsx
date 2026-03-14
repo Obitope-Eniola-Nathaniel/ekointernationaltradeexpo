@@ -30,17 +30,17 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import logo from "@/assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
-import eventPoster from "@/assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
-import heroBackground from "@/assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
-import expoBackground from "@/assets/images/5422825574e49bbbe2bf755b6a86b23d18d0cf1e.png";
-import henryImage from "@/assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
-import reginaImage from "@/assets/images/64f840094eb57bd45c7f3516c3f86bc1e5792961.png";
-import fatokiImage from "@/assets/images/fa9a28c12456029b49ef79c17c4f54bedb071111.png";
-import marketplaceImage from "@/assets/images/46f98dc36d495776547edc6a4a75291b188687d3.png";
-import innovationImage from "@/assets/images/1515d8d3bed41fb6e1826ad5af6f2a1962c49f3c.png";
-import connectionsImage from "@/assets/images/c73d872ff89058d703832a96a0329cd39c4df152.png";
-import smeImage from "@/assets/images/c292bf6e3ace4d46137d89a0c473a4685e002f5f.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import eventPoster from "../../assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
+import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import expoBackground from "../../assets/images/5422825574e49bbbe2bf755b6a86b23d18d0cf1e.png";
+import henryImage from "../../assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
+import reginaImage from "../../assets/images/64f840094eb57bd45c7f3516c3f86bc1e5792961.png";
+import fatokiImage from "../../assets/images/fa9a28c12456029b49ef79c17c4f54bedb071111.png";
+import marketplaceImage from "../../assets/images/46f98dc36d495776547edc6a4a75291b188687d3.png";
+import innovationImage from "../../assets/images/1515d8d3bed41fb6e1826ad5af6f2a1962c49f3c.png";
+import connectionsImage from "../../assets/images/c73d872ff89058d703832a96a0329cd39c4df152.png";
+import smeImage from "../../assets/images/c292bf6e3ace4d46137d89a0c473a4685e002f5f.png";
 
 export function Home() {
   // Countdown Timer State

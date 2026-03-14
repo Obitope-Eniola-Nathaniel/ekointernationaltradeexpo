@@ -10,7 +10,7 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-import logo from "@/assets/images/5c8986ece2f57565fb099eb11a2b86e50d4009c3.png";
+import logo from "../../assets/images/5c8986ece2f57565fb099eb11a2b86e50d4009c3.png";
 
 export function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
