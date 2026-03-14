@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Login Detected - EKO International Trade Expo</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f3f4f6;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" style="max-width: 600px; width: 100%; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          
+          <!-- Header with Gradient -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); padding: 40px 30px; text-align: center;">
+              <div style="width: 80px; height: 80px; background-color: rgba(255, 255, 255, 0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                <span style="color: #ffffff; font-size: 40px;">🔐</span>
+              </div>
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">New Login Detected</h1>
+              <p style="margin: 10px 0 0 0; color: #ffffff; font-size: 16px; opacity: 0.95;">Someone just logged into your account</p>
+            </td>
+          </tr>
+          
+          <!-- Content -->
+          <tr>
+            <td style="padding: 40px 30px;">
+              <p style="margin: 0 0 20px 0; color: #374151; font-size: 16px; line-height: 1.6;">
+                Hi <strong>{{NAME}}</strong>,
+              </p>
+              
+              <p style="margin: 0 0 30px 0; color: #374151; font-size: 16px; line-height: 1.6;">
+                We detected a new login to your <strong>EKO International Trade Expo</strong> account. Here are the details:
+              </p>
+              
+              <!-- Login Details Box -->
+              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9fafb; border-radius: 8px; margin: 0 0 30px 0; border: 1px solid #e5e7eb;">
+                <tr>
+                  <td style="padding: 25px;">
+                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                      <tr>
+                        <td style="padding: 10px 0; color: #6b7280; font-size: 14px; width: 140px;">
+                          <strong>Date & Time:</strong>
+                        </td>
+                        <td style="padding: 10px 0; color: #374151; font-size: 14px;">
+                          {{LOGIN_DATE}} at {{LOGIN_TIME}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 0; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          <strong>Device:</strong>
+                        </td>
+                        <td style="padding: 10px 0; color: #374151; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          {{DEVICE_INFO}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 0; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          <strong>Browser:</strong>
+                        </td>
+                        <td style="padding: 10px 0; color: #374151; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          {{BROWSER_INFO}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 0; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          <strong>Location:</strong>
+                        </td>
+                        <td style="padding: 10px 0; color: #374151; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          {{LOCATION}} (Approximate)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 0; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          <strong>IP Address:</strong>
+                        </td>
+                        <td style="padding: 10px 0; color: #374151; font-size: 14px; border-top: 1px solid #e5e7eb;">
+                          {{IP_ADDRESS}}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Was This You? -->
+              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #d1fae5; border-left: 4px solid #10b981; border-radius: 4px; margin: 0 0 30px 0;">
+                <tr>
+                  <td style="padding: 15px 20px;">
+                    <p style="margin: 0; color: #065f46; font-size: 14px; line-height: 1.6;">
+                      <strong>✓ Was this you?</strong><br>
+                      If you recognize this activity, no action is needed. Your account is secure.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Security Alert -->
+              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fee2e2; border-left: 4px solid #ef4444; border-radius: 4px; margin: 0 0 30px 0;">
+                <tr>
+                  <td style="padding: 15px 20px;">
+                    <p style="margin: 0 0 10px 0; color: #991b1b; font-size: 14px; line-height: 1.6;">
+                      <strong>⚠️ Don't recognize this login?</strong>
+                    </p>
+                    <p style="margin: 0 0 15px 0; color: #991b1b; font-size: 14px; line-height: 1.6;">
+                      If this wasn't you, your account may have been compromised. Please secure your account immediately by:
+                    </p>
+                    <ol style="margin: 0; padding-left: 20px; color: #991b1b; font-size: 14px; line-height: 1.6;">
+                      <li style="margin-bottom: 5px;">Changing your password right away</li>
+                      <li style="margin-bottom: 5px;">Reviewing your account activity</li>
+                      <li>Contacting our support team</li>
+                    </ol>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- CTA Button -->
+              <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td align="center" style="padding: 0 0 30px 0;">
+                    <a href="{{CHANGE_PASSWORD_URL}}" style="display: inline-block; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #ffffff; text-decoration: none; padding: 14px 40px; border-radius: 6px; font-size: 16px; font-weight: bold;">Change Password Now</a>
+                  </td>
+                </tr>
+              </table>
+              
+              <p style="margin: 0 0 10px 0; color: #374151; font-size: 16px; line-height: 1.6;">
+                Stay secure,<br>
+                <strong>The EKO Expo Team</strong>
+              </p>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 14px;">
+                Security concerns? Contact us immediately:
+              </p>
+              <p style="margin: 0 0 15px 0; color: #10b981; font-size: 14px; font-weight: bold;">
+                +234 703 913 8773 | +234 806 313 0771
+              </p>
+              <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 13px;">
+                EKO International Trade Expo<br>
+                Momentum Trading Enterprises
+              </p>
+              <p style="margin: 0 0 10px 0; color: #9ca3af; font-size: 12px;">
+                This is an automated security notification. Please do not reply to this email.
+              </p>
+              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                © 2026 EKO International Trade Expo. All rights reserved.
+              </p>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
