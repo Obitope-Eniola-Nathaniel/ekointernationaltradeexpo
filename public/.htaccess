@@ -2,10 +2,15 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  # If the request is not for a real file or directory
+
+  # Never rewrite requests for built assets (CSS, JS, images) - required for styles to load
+  RewriteCond %{REQUEST_URI} ^/assets/ [OR]
+  RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ [NC]
+  RewriteRule ^ - [L]
+
+  # If the request is not for a real file or directory, send to index.html for React Router
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  # Send everything to index.html so React Router can handle it
   RewriteRule . /index.html [L]
 </IfModule>
 
