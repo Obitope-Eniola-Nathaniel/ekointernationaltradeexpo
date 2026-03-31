@@ -10,6 +10,7 @@ import {
   TrendingUp,
   ArrowRight,
   Clock,
+  MapPin,
   Factory,
   Sprout,
   Cpu,
@@ -29,18 +30,21 @@ import {
   Phone,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../config/api";
 import { motion } from "motion/react";
 import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import eventPoster from "../../assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
 import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
 import expoBackground from "../../assets/images/5422825574e49bbbe2bf755b6a86b23d18d0cf1e.png";
 import henryImage from "../../assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
-import reginaImage from "../../assets/images/64f840094eb57bd45c7f3516c3f86bc1e5792961.png";
-import fatokiImage from "../../assets/images/fa9a28c12456029b49ef79c17c4f54bedb071111.png";
+import reginaImage from "../../assets/images/ReginaBamaiyi.jpeg";
+import fatokiImage from "../../assets/images/Fatoki.jpeg";
 import marketplaceImage from "../../assets/images/46f98dc36d495776547edc6a4a75291b188687d3.png";
 import innovationImage from "../../assets/images/1515d8d3bed41fb6e1826ad5af6f2a1962c49f3c.png";
 import connectionsImage from "../../assets/images/c73d872ff89058d703832a96a0329cd39c4df152.png";
 import smeImage from "../../assets/images/c292bf6e3ace4d46137d89a0c473a4685e002f5f.png";
+import venueOne from "../../assets/images/new-venue.png";
+import venueTwo from "../../assets/images/4613.jpg";
 
 export function Home() {
   // Countdown Timer State
@@ -71,6 +75,28 @@ export function Home() {
 
     return () => clearInterval(timer);
   }, [expoDate]);
+
+  // Lightweight page view tracking for basic visitor analytics.
+  useEffect(() => {
+    const track = async () => {
+      try {
+        await fetch(`${API_BASE_URL}/api/analytics/track`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            route: "/",
+            referrer: document.referrer || undefined,
+          }),
+        });
+      } catch {
+        // Tracking failures should never impact the user experience.
+      }
+    };
+
+    track();
+  }, []);
 
   const highlights = [
     {
@@ -184,7 +210,7 @@ export function Home() {
                       ease: "easeOut",
                     }}
                   >
-                    EKO International Trade Expo
+                    EKO International Trade Expo 2026
                   </motion.span>
                 </h1>
               </motion.div>
@@ -283,6 +309,10 @@ export function Home() {
                 <p className="text-xl text-white">
                   Tues 22nd - Sat 26th Sept 2026
                 </p>
+                <div className="mt-3 flex items-center justify-center gap-2 text-white/95 text-sm">
+                  <MapPin className="h-4 w-4 flex-shrink-0" />
+                  <span>Eridan-space (Testing Ground) Obafemi Awolowo Way, Alausa, Ikeja, Lagos State</span>
+                </div>
               </div>
               <div className="bg-gradient-to-br from-[var(--eko-orange)] to-[var(--eko-yellow)] rounded-xl p-6 text-white text-center">
                 <div className="flex items-center justify-center gap-2 mb-2">
@@ -291,6 +321,30 @@ export function Home() {
                 </div>
                 <p className="text-xl text-white">8:00 AM Daily</p>
               </div>
+            </div>
+          </div>
+
+          {/* Event Venue Images */}
+          <div className="mt-12 max-w-4xl mx-auto">
+            <h3
+              className="text-center text-xl font-medium mb-6"
+              style={{ color: "var(--eko-green)" }}
+            >
+              Event Venue - Eridan-space (Testing Ground), Alausa, Ikeja
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <img
+                src={venueOne}
+                alt="EKO Trade Expo venue - Eridan-space (Testing Ground), Alausa, Ikeja"
+                className="w-full rounded-xl shadow-lg object-cover"
+                loading="lazy"
+              />
+              <img
+                src={venueTwo}
+                alt="EKO Trade Expo venue - Eridan-space (Testing Ground), Alausa, Ikeja"
+                className="w-full rounded-xl shadow-lg object-cover"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
@@ -358,7 +412,7 @@ export function Home() {
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 md:p-8 border-2 border-gray-200 shadow-xl">
               <img
                 src={eventPoster}
-                alt="EKO International Trade Expo 2026 - September 22-26, Police College Ikeja"
+                alt="EKO International Trade Expo 2026 - September 22-26, Eridan-space (Testing Ground), Alausa, Ikeja"
                 className="w-full h-auto rounded-xl"
                 loading="lazy"
               />
@@ -441,7 +495,7 @@ export function Home() {
                 className="text-4xl mb-2"
                 style={{ color: "var(--eko-blue)" }}
               >
-                9
+                All
               </div>
               <div className="text-sm text-gray-600 uppercase tracking-wide">
                 Sectors
@@ -493,7 +547,7 @@ export function Home() {
                     className="h-5 w-5 flex-shrink-0 mt-1"
                     style={{ color: "var(--eko-green)" }}
                   />
-                  <span>200+ exhibition booths across 9 dynamic sectors</span>
+                  <span>200+ exhibition booths across all dynamic sectors</span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-600 mt-2">
                   <CheckCircle2
@@ -1066,7 +1120,7 @@ export function Home() {
               </div>
               <div className="p-6">
                 <h3 className="mb-2">Fatoki Abiodun</h3>
-                <p className="text-sm" style={{ color: "var(--eko-orange)" }}>
+                <p className="text-sm" style={{ color: "var(--eko-green)" }}>
                   Operations & Logistics Manager
                 </p>
                 <p className="text-sm text-gray-600 mt-3">
@@ -1088,8 +1142,8 @@ export function Home() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="mb-2">Dr. Regina Bamayi</h3>
-                <p className="text-sm" style={{ color: "var(--eko-blue)" }}>
+                <h3 className="mb-2">Regina Bamayi</h3>
+                <p className="text-sm" style={{ color: "var(--eko-green)" }}>
                   Policy & Government Relations Lead
                 </p>
                 <p className="text-sm text-gray-600 mt-3">

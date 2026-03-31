@@ -145,7 +145,7 @@ export function Login() {
                     </label>
                   </div>
                   <Link
-                    to="/forgot-password"
+                    to="/contact"
                     className="text-sm text-[var(--eko-green)] hover:underline"
                   >
                     Forgot password?

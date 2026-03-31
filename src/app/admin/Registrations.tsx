@@ -1,100 +1,77 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, Filter, Download, Eye, Mail, Phone } from "lucide-react";
+import { API_BASE_URL } from "../config/api";
+
+type ApiRegistration = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company?: string;
+  category: string;
+  createdAt: string;
+};
+
+type UiRegistration = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  type: string;
+  sector: string;
+  date: string;
+  status: string;
+};
 
 export function Registrations() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
+  const [items, setItems] = useState<UiRegistration[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const registrations = [
-    {
-      id: 1,
-      name: "Adewale Johnson",
-      email: "adewale.j@email.com",
-      phone: "+234 801 234 5678",
-      company: "Johnson Enterprises Ltd",
-      type: "Exhibitor",
-      sector: "Manufacturing",
-      date: "2024-03-10",
-      status: "Confirmed"
-    },
-    {
-      id: 2,
-      name: "Chioma Okonkwo",
-      email: "chioma.o@email.com",
-      phone: "+234 802 345 6789",
-      company: "TechVista Solutions",
-      type: "Visitor",
-      sector: "Technology",
-      date: "2024-03-10",
-      status: "Pending"
-    },
-    {
-      id: 3,
-      name: "Ibrahim Hassan",
-      email: "ibrahim.h@email.com",
-      phone: "+234 803 456 7890",
-      company: "Hassan Trading Co.",
-      type: "Exhibitor",
-      sector: "Retail",
-      date: "2024-03-09",
-      status: "Confirmed"
-    },
-    {
-      id: 4,
-      name: "Grace Adekunle",
-      email: "grace.a@email.com",
-      phone: "+234 804 567 8901",
-      company: "Grace Ventures",
-      type: "Visitor",
-      sector: "Services",
-      date: "2024-03-09",
-      status: "Confirmed"
-    },
-    {
-      id: 5,
-      name: "Michael Chen",
-      email: "michael.c@email.com",
-      phone: "+86 138 0013 8000",
-      company: "Global Trade International",
-      type: "International",
-      sector: "Import/Export",
-      date: "2024-03-08",
-      status: "Confirmed"
-    },
-    {
-      id: 6,
-      name: "Blessing Nwankwo",
-      email: "blessing.n@email.com",
-      phone: "+234 805 678 9012",
-      company: "Nwankwo Foods",
-      type: "Exhibitor",
-      sector: "Food & Beverage",
-      date: "2024-03-08",
-      status: "Pending"
-    },
-    {
-      id: 7,
-      name: "Ahmed Musa",
-      email: "ahmed.m@email.com",
-      phone: "+234 806 789 0123",
-      company: "Musa Textiles",
-      type: "Exhibitor",
-      sector: "Textiles",
-      date: "2024-03-07",
-      status: "Confirmed"
-    },
-    {
-      id: 8,
-      name: "Sophia Williams",
-      email: "sophia.w@email.com",
-      phone: "+44 20 7946 0958",
-      company: "UK Trade Partners",
-      type: "International",
-      sector: "Business Services",
-      date: "2024-03-07",
-      status: "Confirmed"
-    }
-  ];
+  // Load registrations from the backend and adapt them to the UI shape.
+  useEffect(() => {
+    const fetchRegistrations = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_BASE_URL}/api/registrations`);
+        if (!response.ok) {
+          throw new Error("Failed to load registrations");
+        }
+        const data = (await response.json()) as ApiRegistration[];
+
+        const mapped: UiRegistration[] = data.map((reg) => ({
+          id: reg.id,
+          name: `${reg.firstName} ${reg.lastName}`.trim(),
+          email: reg.email,
+          phone: reg.phone,
+          company: reg.company || "—",
+          type: reg.category,
+          // Sector and status are not yet modelled in the backend;
+          // we keep them simple placeholders for now.
+          sector: "—",
+          status: "Confirmed",
+          date: new Date(reg.createdAt).toLocaleDateString()
+        }));
+
+        setItems(mapped);
+      } catch (err) {
+        console.error("Failed to fetch registrations", err);
+        setError("Unable to load registrations. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRegistrations();
+  }, []);
+
+  const registrations = items;
 
   const filteredRegistrations = registrations.filter((reg) => {
     const matchesSearch = 
@@ -123,6 +100,43 @@ export function Registrations() {
         return "bg-gray-100 text-gray-700";
     }
   };
+
+  if (loading) {
+    return (
+      <div className="p-6 lg:p-8 animate-pulse">
+        <div className="mb-8">
+          <div className="h-8 w-56 bg-gray-200 rounded-lg mb-3" />
+          <div className="h-4 w-80 bg-gray-200 rounded-lg" />
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex-1 h-10 bg-gray-100 rounded-lg" />
+            <div className="w-64 h-10 bg-gray-100 rounded-lg" />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={idx} className="bg-white rounded-lg border border-gray-200 p-4 space-y-2">
+              <div className="h-3 w-24 bg-gray-100 rounded-lg" />
+              <div className="h-6 w-12 bg-gray-200 rounded-lg" />
+            </div>
+          ))}
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          {Array.from({ length: 6 }).map((_, rowIdx) => (
+            <div key={rowIdx} className="flex items-center gap-4 px-6 py-4 border-b border-gray-100">
+              <div className="flex-1 space-y-2">
+                <div className="h-4 w-40 bg-gray-100 rounded-lg" />
+                <div className="h-3 w-32 bg-gray-50 rounded-lg" />
+              </div>
+              <div className="hidden md:block h-4 w-40 bg-gray-100 rounded-lg" />
+              <div className="hidden md:block h-3 w-32 bg-gray-50 rounded-lg" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 lg:p-8">
@@ -258,8 +272,13 @@ export function Registrations() {
         </div>
       </div>
 
-      {/* No Results */}
-      {filteredRegistrations.length === 0 && (
+      {/* Error / No Results */}
+      {error && (
+        <div className="text-center py-8 text-red-600 text-sm">
+          {error}
+        </div>
+      )}
+      {!error && !loading && filteredRegistrations.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500">No registrations found matching your criteria.</p>
         </div>

@@ -26,7 +26,7 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            if (id.includes('motion/')) return 'vendor-motion'
+            // Keep motion with vendor (or main) so it has access to React.createContext
             if (id.includes('lucide-react')) return 'vendor-lucide'
             return 'vendor'
           }

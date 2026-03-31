@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { CheckCircle2, Building2, User, Mail, Phone, Globe, MapPin, ArrowDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CheckCircle2, Building2, User, Mail, Phone, Globe, ArrowDown, X } from "lucide-react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
+import { API_BASE_URL } from "../config/api";
 import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
 
@@ -14,12 +15,15 @@ export function Register() {
     company: "",
     position: "",
     country: "",
+    countryOther: "",
     cityState: "",
     category: "",
     message: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const categories = [
     "Exhibitor",
@@ -31,35 +35,114 @@ export function Register() {
     "Other",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const countries = [
+    "Nigeria",
+    "Ghana",
+    "South Africa",
+    "Kenya",
+    "Egypt",
+    "Cameroon",
+    "Senegal",
+    "Ivory Coast",
+    "Tanzania",
+    "Ethiopia",
+    "Morocco",
+    "Uganda",
+    "Rwanda",
+    "Benin",
+    "Togo",
+    "United Kingdom",
+    "United States",
+    "Canada",
+    "Germany",
+    "France",
+    "China",
+    "India",
+    "United Arab Emirates",
+    "Netherlands",
+    "Belgium",
+    "Other",
+  ];
+
+  // Track visits to the registration page for basic conversion analytics.
+  useEffect(() => {
+    const track = async () => {
+      try {
+        await fetch(`${API_BASE_URL}/api/analytics/track`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            route: "/register",
+            referrer: document.referrer || undefined,
+          }),
+        });
+      } catch {
+        // Ignore tracking errors completely.
+      }
+    };
+
+    track();
+  }, []);
+
+  // Handle submission of the expo registration form.
+  // This does NOT create a login account; it simply sends the details to our backend.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would send data to a backend
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        company: "",
-        position: "",
-        country: "",
-        cityState: "",
-        category: "",
-        message: "",
+    setSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/registrations`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    }, 3000);
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(data?.message || "Failed to submit registration");
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      setSubmitError(error instanceof Error ? error.message : "Something went wrong");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const closeSuccessModal = () => {
+    setSubmitted(false);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      company: "",
+      position: "",
+      country: "",
+      countryOther: "",
+      cityState: "",
+      category: "",
+      message: "",
+    });
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "country" && value !== "Other" ? { countryOther: "" } : {}),
+    }));
   };
 
   const scrollToForm = () => {
@@ -149,20 +232,59 @@ export function Register() {
         </div>
 
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 relative z-10">
-          {submitted ? (
-            <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-                  <CheckCircle2 className="h-8 w-8 text-green-600" />
+          {/* Success modal */}
+          {submitted && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="success-modal-title"
+              onClick={closeSuccessModal}
+            >
+              <div
+                className="bg-white rounded-2xl shadow-xl max-w-md w-full p-8 text-center relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={closeSuccessModal}
+                  className="absolute top-4 right-4 p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+                <div className="flex justify-center mb-4">
+                  <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: "var(--eko-green)", color: "white" }}
+                  >
+                    <CheckCircle2 className="h-8 w-8 text-white" />
+                  </div>
                 </div>
+                <h2 id="success-modal-title" className="text-2xl font-semibold text-gray-900 mb-2">
+                  Registration Successful!
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Thank you for registering. We will contact you soon with more details.
+                </p>
+                <button
+                  type="button"
+                  onClick={closeSuccessModal}
+                  className="w-full py-3 px-4 rounded-lg text-white font-medium transition-colors"
+                  style={{ backgroundColor: "var(--eko-green)" }}
+                >
+                  Done
+                </button>
               </div>
-              <h2 className="text-2xl text-green-900 mb-2">Registration Successful!</h2>
-              <p className="text-green-700">
-                Thank you for registering. We will contact you soon with more details.
-              </p>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+              {submitError && (
+                <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {submitError}
+                </div>
+              )}
               {/* Personal Information */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-center gap-3 mb-6">
@@ -278,17 +400,40 @@ export function Register() {
                       Country *
                     </label>
                     <div className="relative">
-                      <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <input
-                        type="text"
+                      <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none z-10" />
+                      <select
                         id="country"
                         name="country"
                         required
                         value={formData.country}
                         onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--eko-green)] focus:border-transparent"
-                      />
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--eko-green)] focus:border-transparent appearance-none bg-white"
+                      >
+                        <option value="">Select your country</option>
+                        {countries.map((c) => (
+                          <option key={c} value={c}>
+                            {c}
+                          </option>
+                        ))}
+                      </select>
                     </div>
+                    {formData.country === "Other" && (
+                      <div className="mt-2">
+                        <label htmlFor="countryOther" className="block text-sm mb-2">
+                          Please specify your country *
+                        </label>
+                        <input
+                          type="text"
+                          id="countryOther"
+                          name="countryOther"
+                          required
+                          value={formData.countryOther}
+                          onChange={handleChange}
+                          placeholder="Enter your country"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--eko-green)] focus:border-transparent"
+                        />
+                      </div>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="cityState" className="block text-sm mb-2">
@@ -346,12 +491,12 @@ export function Register() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-[var(--eko-green)] text-white py-4 rounded-lg hover:opacity-90 transition-opacity"
+                className="w-full bg-[var(--eko-green)] text-white py-4 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-70 disabled:cursor-not-allowed"
+                disabled={submitting}
               >
-                Submit Registration
+                {submitting ? "Submitting..." : "Submit Registration"}
               </button>
             </form>
-          )}
         </div>
       </section>
 

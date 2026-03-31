@@ -1,84 +1,46 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, Mail, Clock, Check, Archive } from "lucide-react";
+import { API_BASE_URL } from "../config/api";
+
+type MessageItem = {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  status: "unread" | "read" | "archived";
+  createdAt: string;
+};
 
 export function Messages() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
+  const [messages, setMessages] = useState<MessageItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const messages = [
-    {
-      id: 1,
-      name: "Sarah Williams",
-      email: "sarah.w@email.com",
-      subject: "Booth pricing inquiry",
-      message: "Hello, I would like to know the pricing details for a 3x3m booth at the upcoming trade expo. Also, are there any early bird discounts available?",
-      date: "2024-03-10 14:30",
-      status: "unread"
-    },
-    {
-      id: 2,
-      name: "David Okafor",
-      email: "david.o@email.com",
-      subject: "Sponsorship opportunities",
-      message: "Good day. Our company is interested in becoming a sponsor for the EKO International Trade Expo. Could you please share the sponsorship packages and benefits?",
-      date: "2024-03-10 11:15",
-      status: "unread"
-    },
-    {
-      id: 3,
-      name: "Fatima Bello",
-      email: "fatima.b@email.com",
-      subject: "Event schedule question",
-      message: "Hi, I registered as a visitor. Will there be specific times for B2B networking sessions? I'd like to plan my visit accordingly.",
-      date: "2024-03-10 08:45",
-      status: "read"
-    },
-    {
-      id: 4,
-      name: "John Smith",
-      email: "john.s@internationaltrade.com",
-      subject: "International exhibitor details",
-      message: "Hello from the UK! We're interested in exhibiting at your trade expo. What are the requirements and support available for international exhibitors?",
-      date: "2024-03-09 16:20",
-      status: "read"
-    },
-    {
-      id: 5,
-      name: "Chiamaka Nwosu",
-      email: "chiamaka.n@email.com",
-      subject: "Media partnership inquiry",
-      message: "Good afternoon. I represent a business magazine in Lagos and we'd like to explore media partnership opportunities for the expo.",
-      date: "2024-03-09 13:10",
-      status: "archived"
-    },
-    {
-      id: 6,
-      name: "Mohammed Baba",
-      email: "mohammed.b@email.com",
-      subject: "Exhibitor registration help",
-      message: "I'm having trouble completing the exhibitor registration form. The payment section keeps showing an error. Can someone assist?",
-      date: "2024-03-09 10:30",
-      status: "read"
-    },
-    {
-      id: 7,
-      name: "Linda Ogun",
-      email: "linda.o@email.com",
-      subject: "Accommodation recommendations",
-      message: "Hello! I'm traveling from Abuja to attend the expo. Could you recommend hotels near the venue?",
-      date: "2024-03-08 15:45",
-      status: "read"
-    },
-    {
-      id: 8,
-      name: "Peter Chen",
-      email: "peter.c@asiatrade.com",
-      subject: "Bulk visitor passes",
-      message: "We would like to bring a delegation of 15 people from our company. Is there a group discount for visitor passes?",
-      date: "2024-03-08 09:00",
-      status: "archived"
-    }
-  ];
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_BASE_URL}/api/messages`);
+        if (!response.ok) {
+          throw new Error("Failed to load messages");
+        }
+        const data = (await response.json()) as MessageItem[];
+        setMessages(data);
+      } catch (err) {
+        console.error("Failed to fetch messages", err);
+        setError("Unable to load messages. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, []);
 
   const filteredMessages = messages.filter((msg) => {
     const matchesSearch = 
@@ -129,6 +91,48 @@ export function Messages() {
         return "bg-gray-100 text-gray-600";
     }
   };
+
+  if (loading) {
+    return (
+      <div className="p-6 lg:p-8 animate-pulse">
+        <div className="mb-8">
+          <div className="h-8 w-56 bg-gray-200 rounded-lg mb-3" />
+          <div className="h-4 w-80 bg-gray-200 rounded-lg" />
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex-1 h-10 bg-gray-100 rounded-lg" />
+            <div className="w-64 h-10 bg-gray-100 rounded-lg" />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={idx} className="bg-white rounded-lg border border-gray-200 p-4 space-y-2">
+              <div className="h-3 w-24 bg-gray-100 rounded-lg" />
+              <div className="h-6 w-12 bg-gray-200 rounded-lg" />
+            </div>
+          ))}
+        </div>
+        <div className="space-y-4">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={idx} className="bg-white rounded-xl border border-gray-200">
+              <div className="p-6 space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gray-100" />
+                  <div className="space-y-2 flex-1">
+                    <div className="h-4 w-40 bg-gray-100 rounded-lg" />
+                    <div className="h-3 w-32 bg-gray-50 rounded-lg" />
+                  </div>
+                </div>
+                <div className="h-4 w-full bg-gray-50 rounded-lg" />
+                <div className="h-4 w-2/3 bg-gray-50 rounded-lg" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 lg:p-8">
@@ -253,7 +257,7 @@ export function Messages() {
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div className="flex items-center gap-2 text-sm text-gray-500">
                   <Clock className="h-4 w-4" />
-                  <span>{msg.date}</span>
+                  <span>{new Date(msg.createdAt).toLocaleString()}</span>
                 </div>
                 <div className="flex gap-2">
                   <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm">
@@ -269,8 +273,13 @@ export function Messages() {
         ))}
       </div>
 
-      {/* No Results */}
-      {filteredMessages.length === 0 && (
+      {/* Error / No Results */}
+      {error && (
+        <div className="text-center py-8 text-red-600 text-sm">
+          {error}
+        </div>
+      )}
+      {!error && !loading && filteredMessages.length === 0 && (
         <div className="text-center py-12">
           <Mail className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No messages found matching your criteria.</p>

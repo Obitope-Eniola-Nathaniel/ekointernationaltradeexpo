@@ -70,7 +70,7 @@ export function Settings() {
                   <label className="block text-sm text-gray-700 mb-2">Venue</label>
                   <input
                     type="text"
-                    defaultValue="Police College, Ikeja, Lagos State"
+                    defaultValue="Eridan-space (Testing Ground) Obafemi Awolowo Way, Alausa, Ikeja, Lagos State"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--eko-green)] focus:border-transparent outline-none"
                   />
                 </div>

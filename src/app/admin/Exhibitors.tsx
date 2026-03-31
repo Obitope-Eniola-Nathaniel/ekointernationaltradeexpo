@@ -1,89 +1,78 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search, Building2, MapPin, Package, Eye, Edit } from "lucide-react";
+import { API_BASE_URL } from "../config/api";
+
+type ApiRegistration = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company?: string;
+  category: string;
+  country?: string;
+};
+
+type Exhibitor = {
+  id: string;
+  company: string;
+  contact: string;
+  email: string;
+  phone: string;
+  sector: string;
+  boothNumber: string;
+  boothSize: string;
+  products: string;
+  country: string;
+  status: string;
+};
 
 export function Exhibitors() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [exhibitors, setExhibitors] = useState<Exhibitor[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const exhibitors = [
-    {
-      id: 1,
-      company: "Johnson Enterprises Ltd",
-      contact: "Adewale Johnson",
-      email: "adewale.j@johnsonent.com",
-      phone: "+234 801 234 5678",
-      sector: "Manufacturing",
-      boothNumber: "A-101",
-      boothSize: "3x3m",
-      products: "Industrial Equipment, Machinery",
-      country: "Nigeria",
-      status: "Confirmed"
-    },
-    {
-      id: 2,
-      company: "Hassan Trading Co.",
-      contact: "Ibrahim Hassan",
-      email: "ibrahim@hassantrading.com",
-      phone: "+234 803 456 7890",
-      sector: "Retail & Distribution",
-      boothNumber: "B-205",
-      boothSize: "2x2m",
-      products: "Consumer Goods, Electronics",
-      country: "Nigeria",
-      status: "Confirmed"
-    },
-    {
-      id: 3,
-      company: "Global Trade International",
-      contact: "Michael Chen",
-      email: "michael.c@globaltrade.com",
-      phone: "+86 138 0013 8000",
-      sector: "Import/Export",
-      boothNumber: "C-315",
-      boothSize: "4x4m",
-      products: "Textiles, Electronics, Machinery",
-      country: "China",
-      status: "Confirmed"
-    },
-    {
-      id: 4,
-      company: "Nwankwo Foods Limited",
-      contact: "Blessing Nwankwo",
-      email: "blessing@nwankwofoods.com",
-      phone: "+234 805 678 9012",
-      sector: "Food & Beverage",
-      boothNumber: "D-420",
-      boothSize: "3x2m",
-      products: "Processed Foods, Beverages",
-      country: "Nigeria",
-      status: "Pending"
-    },
-    {
-      id: 5,
-      company: "Musa Textiles Industries",
-      contact: "Ahmed Musa",
-      email: "ahmed@musatextiles.com",
-      phone: "+234 806 789 0123",
-      sector: "Textiles & Fashion",
-      boothNumber: "E-530",
-      boothSize: "3x3m",
-      products: "Fabrics, Garments, Fashion Accessories",
-      country: "Nigeria",
-      status: "Confirmed"
-    },
-    {
-      id: 6,
-      company: "UK Trade Partners Ltd",
-      contact: "Sophia Williams",
-      email: "sophia@uktradepartners.co.uk",
-      phone: "+44 20 7946 0958",
-      sector: "Business Services",
-      boothNumber: "F-645",
-      boothSize: "2x3m",
-      products: "Consultancy, Trade Services",
-      country: "United Kingdom",
-      status: "Confirmed"
-    }
-  ];
+  useEffect(() => {
+    const fetchExhibitors = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_BASE_URL}/api/registrations`);
+        if (!response.ok) {
+          throw new Error("Failed to load exhibitors");
+        }
+        const data = (await response.json()) as ApiRegistration[];
+
+        const mapped: Exhibitor[] = data
+          .filter((reg) => reg.category === "Exhibitor")
+          .map((reg) => ({
+            id: reg.id,
+            company: reg.company || "Unnamed Exhibitor",
+            contact: `${reg.firstName} ${reg.lastName}`.trim(),
+            email: reg.email,
+            phone: reg.phone,
+            // These are not yet modelled in the backend; keep neutral placeholders.
+            sector: "—",
+            boothNumber: "TBD",
+            boothSize: "TBD",
+            products: "—",
+            country: reg.country || "Nigeria",
+            status: "Confirmed"
+          }));
+
+        setExhibitors(mapped);
+      } catch (err) {
+        console.error("Failed to fetch exhibitors", err);
+        setError("Unable to load exhibitors. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExhibitors();
+  }, []);
 
   const filteredExhibitors = exhibitors.filter((exhibitor) =>
     exhibitor.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -96,6 +85,49 @@ export function Exhibitors() {
       ? "bg-green-100 text-green-700" 
       : "bg-yellow-100 text-yellow-700";
   };
+
+  if (loading) {
+    return (
+      <div className="p-6 lg:p-8 animate-pulse">
+        <div className="mb-8">
+          <div className="h-8 w-56 bg-gray-200 rounded-lg mb-3" />
+          <div className="h-4 w-80 bg-gray-200 rounded-lg" />
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+          <div className="h-10 bg-gray-100 rounded-lg" />
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={idx} className="bg-white rounded-lg border border-gray-200 p-4 space-y-2">
+              <div className="h-3 w-24 bg-gray-100 rounded-lg" />
+              <div className="h-6 w-12 bg-gray-200 rounded-lg" />
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={idx} className="bg-white rounded-xl border border-gray-200">
+              <div className="p-6 border-b border-gray-100 flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-gray-100" />
+                  <div className="space-y-2">
+                    <div className="h-4 w-40 bg-gray-100 rounded-lg" />
+                    <div className="h-3 w-24 bg-gray-50 rounded-lg" />
+                  </div>
+                </div>
+                <div className="h-5 w-16 bg-gray-100 rounded-lg" />
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="h-3 w-56 bg-gray-100 rounded-lg" />
+                <div className="h-3 w-64 bg-gray-50 rounded-lg" />
+                <div className="h-3 w-40 bg-gray-100 rounded-lg" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 lg:p-8">
@@ -221,8 +253,13 @@ export function Exhibitors() {
         ))}
       </div>
 
-      {/* No Results */}
-      {filteredExhibitors.length === 0 && (
+      {/* Error / No Results */}
+      {error && (
+        <div className="text-center py-8 text-red-600 text-sm">
+          {error}
+        </div>
+      )}
+      {!error && !loading && filteredExhibitors.length === 0 && (
         <div className="text-center py-12">
           <Building2 className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <p className="text-gray-500">No exhibitors found matching your search.</p>

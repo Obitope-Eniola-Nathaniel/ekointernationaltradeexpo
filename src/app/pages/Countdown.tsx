@@ -117,7 +117,7 @@ export function Countdown() {
             <div className="mt-6 bg-gray-50 rounded-xl p-8 border border-gray-200">
               <h3 className="text-xl mb-4">Location</h3>
               <p className="text-gray-700 mb-2">
-                Police College, Ikeja
+                Eridan-space (Testing Ground), Obafemi Awolowo Way, Alausa, Ikeja
               </p>
               <p className="text-gray-600">Lagos State, Nigeria</p>
             </div>

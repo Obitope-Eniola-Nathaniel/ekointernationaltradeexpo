@@ -16,6 +16,7 @@ import logo from "../../assets/images/5c8986ece2f57565fb099eb11a2b86e50d4009c3.p
 import footerLogo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import { ScrollToTop } from "./ScrollToTop";
 import { Helmet } from "react-helmet-async";
+import { NAV_ITEMS, FOOTER_NAV_ITEMS } from "../../constants";
 
 export function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,13 +26,8 @@ export function Layout() {
     setMobileMenuOpen(false);
   }, [location]);
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Sponsors", path: "/sponsors" },
-    { name: "Register", path: "/register" },
-    { name: "Contact", path: "/contact" },
-  ];
+  const navItems = NAV_ITEMS.map((item) => ({ name: item.label, path: item.path }));
+  const footerNavItems = FOOTER_NAV_ITEMS.map((item) => ({ name: item.label, path: item.path }));
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -39,7 +35,7 @@ export function Layout() {
         <title>EKO International Trade Expo 2026 - Lagos, Nigeria</title>
         <meta
           name="description"
-          content="Join West Africa's premier trade exhibition Sept 22-26, 2026 at Police College, Ikeja Lagos. Connect with 500+ exhibitors, 10,000+ visitors, and explore 9 sectors. Register now for exclusive networking, B2B matchmaking, and business growth opportunities."
+          content="Join West Africa's premier trade exhibition Sept 22-26, 2026 at Eridan-space (Testing Ground), Obafemi Awolowo Way, Alausa, Ikeja, Lagos State. Connect with 500+ exhibitors, 10,000+ visitors, and explore 9 sectors. Register now for exclusive networking, B2B matchmaking, and business growth opportunities."
         />
         <meta
           name="keywords"
@@ -53,7 +49,7 @@ export function Layout() {
         />
         <meta
           property="og:description"
-          content="West Africa's premier trade exhibition connecting businesses, investors, and entrepreneurs. Sept 22-26, 2026 at Police College, Ikeja Lagos."
+          content="West Africa's premier trade exhibition connecting businesses, investors, and entrepreneurs. Sept 22-26, 2026 at Eridan-space (Testing Ground), Obafemi Awolowo Way, Alausa, Ikeja, Lagos State."
         />
         <meta property="og:type" content="website" />
         <meta
@@ -83,7 +79,7 @@ export function Layout() {
             "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
             "location": {
               "@type": "Place",
-              "name": "Police College, Ikeja",
+              "name": "Eridan-space (Testing Ground), Obafemi Awolowo Way, Alausa, Ikeja",
               "address": { "@type": "PostalAddress", "addressLocality": "Lagos", "addressCountry": "NG" }
             },
             "organizer": { "@type": "Organization", "name": "Momentum Trading Enterprises" },
@@ -210,7 +206,7 @@ export function Layout() {
                   <Twitter className="h-5 w-5 text-white" />
                 </a>
                 <a
-                  href="https://www.instagram.com/ekointernationaltradeexpo/"
+                  href="https://www.instagram.com/ekotradeexpo/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-lg bg-white/10 hover:bg-white/20 transition-all hover:scale-110"
@@ -225,7 +221,7 @@ export function Layout() {
             <div>
               <h3 className="text-white mb-4 text-lg">Quick Links</h3>
               <div className="flex flex-col gap-2.5">
-                {navItems.map((item) => (
+                {footerNavItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.path}
@@ -235,34 +231,6 @@ export function Layout() {
                     {item.name}
                   </Link>
                 ))}
-                <Link
-                  to="/downloads"
-                  className="text-sm text-white/80 hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-2 group"
-                >
-                  <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Downloads
-                </Link>
-                <Link
-                  to="/faq"
-                  className="text-sm text-white/80 hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-2 group"
-                >
-                  <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  FAQ
-                </Link>
-                <Link
-                  to="/schedule"
-                  className="text-sm text-white/80 hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-2 group"
-                >
-                  <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Schedule
-                </Link>
-                <Link
-                  to="/gallery"
-                  className="text-sm text-white/80 hover:text-white hover:translate-x-1 transition-all inline-flex items-center gap-2 group"
-                >
-                  <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  Gallery
-                </Link>
               </div>
             </div>
 
@@ -271,11 +239,11 @@ export function Layout() {
               <h3 className="text-white mb-4 text-lg">Contact Us</h3>
               <div className="flex flex-col gap-4">
                 <a
-                  href="mailto:info@ekointernationaltradeexpo.com"
+                  href="mailto:contact@ekointernationaltradeexpo.com"
                   className="text-sm text-white/80 hover:text-white transition-colors inline-flex items-start gap-3"
                 >
                   <Mail className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                  <span>info@ekointernationaltradeexpo.com</span>
+                  <span>contact@ekointernationaltradeexpo.com</span>
                 </a>
                 <div className="text-sm text-white/80 inline-flex items-start gap-3">
                   <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />

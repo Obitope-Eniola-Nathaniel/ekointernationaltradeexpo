@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { API_BASE_URL } from "../config/api";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 
@@ -11,24 +12,35 @@ export function AdminLogin() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
-    // Simple demo authentication (NOT secure for production)
-    setTimeout(() => {
-      if (
-        email === "admin@ekointernationaltrade.com" &&
-        password === "admin123"
-      ) {
-        localStorage.setItem("ekoAdminAuth", "true");
-        navigate("/admin/dashboard");
-      } else {
-        setError("Invalid email or password");
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/admin/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(data?.message || "Login failed");
       }
+
+      // Store the opaque token so the AdminLayout can treat the user as authenticated.
+      localStorage.setItem("ekoAdminAuth", data.token ?? "true");
+      navigate("/admin/dashboard");
+    } catch (err) {
+      console.error("Admin login failed", err);
+      setError(err instanceof Error ? err.message : "Unable to sign in");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -66,7 +78,7 @@ export function AdminLogin() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--eko-green)] focus:border-transparent outline-none transition-all"
-                  placeholder="admin@ekointernationaltrade.com"
+                  placeholder="admin@example.com"
                   required
                 />
               </div>
@@ -115,13 +127,14 @@ export function AdminLogin() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
+          {/* Info */}
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-xs text-gray-600 mb-2">Demo Credentials:</p>
-            <p className="text-xs text-gray-500">
-              Email: admin@ekointernationaltrade.com
+            <p className="text-xs text-gray-600">
+              Admin credentials are managed on the server. Update them via the backend
+              <code className="mx-1">.env</code> file (<code>ADMIN_EMAIL</code> and either
+              <code className="mx-1">ADMIN_PASSWORD</code> or
+              <code className="mx-1">ADMIN_PASSWORD_HASH</code>).
             </p>
-            <p className="text-xs text-gray-500">Password: admin123</p>
           </div>
         </div>
       </div>

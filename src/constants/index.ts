@@ -34,10 +34,10 @@ export const EVENT_CONFIG = {
  * Event venue information
  */
 export const VENUE_CONFIG = {
-  NAME: "Police College, Ikeja",
+  NAME: "Eridan-space (Testing Ground)",
   CITY: "Lagos State",
   COUNTRY: "Nigeria",
-  FULL_ADDRESS: "Police College, Ikeja, Lagos State, Nigeria",
+  FULL_ADDRESS: "Eridan-space (Testing Ground) Obafemi Awolowo Way, Alausa, Ikeja, Lagos State",
   
   // Map Coordinates (for Google Maps)
   COORDINATES: {
@@ -49,7 +49,7 @@ export const VENUE_CONFIG = {
   MAPS_EMBED_URL: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.3477896848787!2d3.2752847!3d6.4705859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos%20International%20Trade%20Fair%20Complex!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng",
   
   // Google Maps Directions URL
-  MAPS_DIRECTIONS_URL: "https://www.google.com/maps/dir//Police+College+Ikeja+Lagos",
+  MAPS_DIRECTIONS_URL: "https://www.google.com/maps/dir//Eridan-space+Testing+Ground+Obafemi+Awolowo+Way+Alausa+Ikeja+Lagos",
 } as const;
 
 // ============================================================================
@@ -78,7 +78,7 @@ export const CONTACT_INFO = {
   SOCIAL: {
     FACEBOOK: "https://facebook.com/ekotrade",
     TWITTER: "https://twitter.com/ekotrade",
-    INSTAGRAM: "https://instagram.com/ekotrade",
+    INSTAGRAM: "https://www.instagram.com/ekotradeexpo/",
     LINKEDIN: "https://linkedin.com/company/ekotrade",
   },
   
@@ -131,18 +131,38 @@ export const ROUTES = {
 } as const;
 
 /**
- * Navigation menu items
- * Used in Layout.tsx for navigation menu
+ * Navigation menu items (all main site routes)
+ * Used in Layout.tsx for header and footer navigation
  */
 export const NAV_ITEMS = [
   { path: ROUTES.HOME, label: "Home" },
   { path: ROUTES.ABOUT, label: "About" },
-  { path: ROUTES.COUNTDOWN, label: "Countdown" },
-  { path: ROUTES.SCHEDULE, label: "Schedule" },
+  // { path: ROUTES.COUNTDOWN, label: "Countdown" },
+  // { path: ROUTES.SCHEDULE, label: "Schedule" },
   { path: ROUTES.SPONSORS, label: "Sponsors" },
   { path: ROUTES.REGISTER, label: "Register" },
   { path: ROUTES.CONTACT, label: "Contact" },
+  // { path: ROUTES.DOWNLOADS, label: "Downloads" },
+  // { path: ROUTES.FAQ, label: "FAQ" },
+  // { path: ROUTES.GALLERY, label: "Gallery" },
+  // { path: ROUTES.TEAM, label: "Team" },
+] as const;
+
+/**
+ * Footer Quick Links only (full list including items not in header nav)
+ */
+export const FOOTER_NAV_ITEMS = [
+  { path: ROUTES.HOME, label: "Home" },
+  { path: ROUTES.ABOUT, label: "About" },
+  { path: ROUTES.SPONSORS, label: "Sponsors" },
+  { path: ROUTES.REGISTER, label: "Register" },
+  { path: ROUTES.CONTACT, label: "Contact" },
+  { path: ROUTES.COUNTDOWN, label: "Countdown" },
+  { path: ROUTES.SCHEDULE, label: "Schedule" },
   { path: ROUTES.DOWNLOADS, label: "Downloads" },
+  { path: ROUTES.FAQ, label: "FAQ" },
+  { path: ROUTES.GALLERY, label: "Gallery" },
+  { path: ROUTES.TEAM, label: "Team" },
 ] as const;
 
 // ============================================================================
@@ -237,7 +257,7 @@ export const ATTENDANCE_TYPES = [
  */
 export const API_ENDPOINTS = {
   // Base URL - Update with your actual API URL
-  BASE_URL: process.env.VITE_API_BASE_URL || "https://api.ekointernationaltrade.com",
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || "https://api.ekointernationaltrade.com",
   
   // Authentication endpoints
   AUTH: {

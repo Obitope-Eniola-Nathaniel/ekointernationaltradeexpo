@@ -1,4 +1,20 @@
-import { Building2, Target, Users, Award, TrendingUp, Globe, Handshake, Check, Factory, Briefcase, Globe2, Landmark, DollarSign, UserCheck, Phone } from "lucide-react";
+import {
+  Building2,
+  Target,
+  Users,
+  Award,
+  TrendingUp,
+  Globe,
+  Handshake,
+  Check,
+  Factory,
+  Briefcase,
+  Globe2,
+  Landmark,
+  DollarSign,
+  UserCheck,
+  Phone,
+} from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import eventPoster from "../../assets/images/b807c71dc03c057cb72e1782296c7f6f8588a576.png";
@@ -10,13 +26,13 @@ import { Link } from "react-router";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 // Counter Component for animated counting
-function AnimatedCounter({ 
-  end, 
-  suffix = "", 
-  duration = 2000 
-}: { 
-  end: number; 
-  suffix?: string; 
+function AnimatedCounter({
+  end,
+  suffix = "",
+  duration = 2000,
+}: {
+  end: number;
+  suffix?: string;
   duration?: number;
 }) {
   const [count, setCount] = useState(0);
@@ -34,11 +50,11 @@ function AnimatedCounter({
           const updateCount = () => {
             const now = Date.now();
             const progress = Math.min((now - startTime) / duration, 1);
-            
+
             // Easing function for smooth animation
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const currentCount = Math.floor(easeOutQuart * end);
-            
+
             setCount(currentCount);
 
             if (now < endTime) {
@@ -51,7 +67,7 @@ function AnimatedCounter({
           requestAnimationFrame(updateCount);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     if (counterRef.current) {
@@ -63,7 +79,8 @@ function AnimatedCounter({
 
   return (
     <div ref={counterRef} className="text-4xl md:text-5xl mb-2 text-gray-900">
-      {count.toLocaleString()}{suffix}
+      {count.toLocaleString()}
+      {suffix}
     </div>
   );
 }
@@ -122,10 +139,28 @@ export function About() {
   ];
 
   const stats = [
-    { number: "10,000+", label: "Expected Visitors", icon: Users, end: 10000, suffix: "+" },
-    { number: "200+", label: "Exhibitors", icon: Building2, end: 200, suffix: "+" },
-    { number: "12+", label: "Countries", icon: Globe, end: 12, suffix: "+" },
-    { number: "5 Days", label: "Of Networking", icon: TrendingUp, end: 5, suffix: " Days" },
+    {
+      number: "10,000+",
+      label: "Expected Visitors",
+      icon: Users,
+      end: 10000,
+      suffix: "+",
+    },
+    {
+      number: "200+",
+      label: "Exhibitors",
+      icon: Building2,
+      end: 200,
+      suffix: "+",
+    },
+    { number: "12", label: "Countries", icon: Globe, end: 12, suffix: "+" },
+    {
+      number: "5 Days",
+      label: "Of Networking",
+      icon: TrendingUp,
+      end: 5,
+      suffix: " Days",
+    },
   ];
 
   return (
@@ -133,14 +168,14 @@ export function About() {
       {/* Hero Section - Consistent with Home */}
       <section className="relative bg-gradient-to-br from-[var(--eko-green)] to-[var(--eko-blue)] text-white overflow-hidden">
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroBackground})` }}
         ></div>
-        
+
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--eko-green)]/95 to-[var(--eko-blue)]/90"></div>
-        
+
         {/* Content */}
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -149,7 +184,8 @@ export function About() {
                 About EKO Expo
               </h1>
               <p className="text-lg md:text-xl mb-8 text-white/95 max-w-2xl">
-                A premier multi-sectoral trade exhibition promoting commerce, innovation, and international partnerships.
+                A premier multi-sectoral trade exhibition promoting commerce,
+                innovation, and international partnerships.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Link
@@ -166,23 +202,23 @@ export function About() {
                 </Link>
               </div>
             </div>
-            <motion.div 
+            <motion.div
               className="flex-shrink-0"
               initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
             >
-              <motion.img 
-                src={logo} 
-                alt="EKO Logo" 
+              <motion.img
+                src={logo}
+                alt="EKO Logo"
                 className="w-64 md:w-80 lg:w-96"
-                animate={{ 
+                animate={{
                   y: [0, -10, 0],
                 }}
                 transition={{
                   duration: 3,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
             </motion.div>
@@ -200,7 +236,9 @@ export function About() {
                 <div key={index} className="text-center">
                   <Icon className="h-10 w-10 mx-auto mb-4 text-[var(--eko-green)]" />
                   <AnimatedCounter end={stat.end} suffix={stat.suffix} />
-                  <p className="text-gray-500 text-sm uppercase tracking-wide">{stat.label}</p>
+                  <p className="text-gray-500 text-sm uppercase tracking-wide">
+                    {stat.label}
+                  </p>
                 </div>
               );
             })}
@@ -213,22 +251,28 @@ export function About() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl" style={{ color: "var(--eko-green)" }}>
+              <h2
+                className="text-4xl md:text-5xl"
+                style={{ color: "var(--eko-green)" }}
+              >
                 A premier trade exhibition
               </h2>
               <div className="space-y-5 text-lg text-gray-600 leading-relaxed">
                 <p>
-                  The Eko International Trade Expo is a premier multi-sectoral trade exhibition
-                  designed to promote commerce, innovation, and international partnerships within
-                  Nigeria and across global markets.
+                  The Eko International Trade Expo is a premier multi-sectoral
+                  trade exhibition designed to promote commerce, innovation, and
+                  international partnerships within Nigeria and across global
+                  markets.
                 </p>
                 <p>
-                  Inspired by Lagos — fondly known as "Eko" — the Expo serves as a dynamic platform where businesses, investors,
-                  entrepreneurs, and institutions converge to explore new opportunities.
+                  Inspired by Lagos — fondly known as "Eko" — the Expo serves as
+                  a dynamic platform where businesses, investors, entrepreneurs,
+                  and institutions converge to explore new opportunities.
                 </p>
                 <p>
-                  A symbol of enterprise, resilience, and cultural pride, bringing
-                  together industries, ideas, and people from different parts of the world.
+                  A symbol of enterprise, resilience, and cultural pride,
+                  bringing together industries, ideas, and people from different
+                  parts of the world.
                 </p>
               </div>
             </div>
@@ -245,17 +289,21 @@ export function About() {
 
       {/* Mission with Full Width Background */}
       <section className="relative py-32 md:py-40 overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(https://images.unsplash.com/photo-1564069970419-0bc8e7b487da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnRlcm5hdGlvbmFsJTIwcGFydG5lcnNoaXAlMjBoYW5kc2hha2V8ZW58MXx8fHwxNzczMjI3NDcwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)" }}
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1564069970419-0bc8e7b487da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnRlcm5hdGlvbmFsJTIwcGFydG5lcnNoaXAlMjBoYW5kc2hha2V8ZW58MXx8fHwxNzczMjI3NDcwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)",
+          }}
         ></div>
         <div className="absolute inset-0 bg-[var(--eko-green)]/90"></div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center text-white">
           <Handshake className="h-16 w-16 mx-auto mb-8 text-white" />
           <h2 className="text-4xl md:text-5xl mb-8 text-white">Our Mission</h2>
           <p className="text-xl md:text-2xl text-white/95 leading-relaxed">
-            To showcase the strength of Nigerian enterprise while connecting local businesses with international markets,
-            investors, and strategic partners.
+            To showcase the strength of Nigerian enterprise while connecting
+            local businesses with international markets, investors, and
+            strategic partners.
           </p>
         </div>
       </section>
@@ -264,7 +312,12 @@ export function About() {
       <section className="py-20 md:py-32 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl mb-6" style={{ color: "var(--eko-green)" }}>What to Expect</h2>
+            <h2
+              className="text-4xl md:text-5xl mb-6"
+              style={{ color: "var(--eko-green)" }}
+            >
+              What to Expect
+            </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               A vibrant business marketplace where innovation meets opportunity
             </p>
@@ -295,7 +348,12 @@ export function About() {
               />
             </div>
             <div className="order-1 lg:order-2">
-              <h2 className="text-4xl md:text-5xl mb-12" style={{ color: "var(--eko-green)" }}>Our Objectives</h2>
+              <h2
+                className="text-4xl md:text-5xl mb-12"
+                style={{ color: "var(--eko-green)" }}
+              >
+                Our Objectives
+              </h2>
               <div className="space-y-6">
                 {objectives.map((item, index) => (
                   <div key={index} className="flex items-start gap-4">
@@ -313,25 +371,31 @@ export function About() {
 
       {/* Target Participants - Clean Background */}
       <section className="relative py-32 md:py-40 overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(https://images.unsplash.com/photo-1743138058185-446e2ac989d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkZSUyMGZhaXIlMjBleGhpYml0aW9uJTIwbWFya2V0cGxhY2UlMjBib290aHMlMjBjcm93ZGVkfGVufDF8fHx8MTc3MzM4NjE2MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)" }}
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1743138058185-446e2ac989d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmFkZSUyMGZhaXIlMjBleGhpYml0aW9uJTIwbWFya2V0cGxhY2UlMjBib290aHMlMjBjcm93ZGVkfGVufDF8fHx8MTc3MzM4NjE2MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)",
+          }}
         ></div>
         <div className="absolute inset-0 bg-[var(--eko-green)]/85"></div>
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl mb-4 text-white">Who Attends</h2>
+            <h2 className="text-4xl md:text-5xl mb-4 text-white">
+              Who Attends
+            </h2>
             <p className="text-lg text-white/90 max-w-2xl mx-auto">
-              Join industry leaders, innovators, and decision-makers shaping Africa's commercial future
+              Join industry leaders, innovators, and decision-makers shaping
+              Africa's commercial future
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {participants.map((item, index) => {
               const Icon = item.icon;
               return (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="group relative bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300"
                 >
                   {/* Icon */}
@@ -340,9 +404,7 @@ export function About() {
                       <Icon className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-white leading-relaxed">
-                        {item.title}
-                      </p>
+                      <p className="text-white leading-relaxed">{item.title}</p>
                     </div>
                   </div>
                 </div>
@@ -356,7 +418,12 @@ export function About() {
       <section className="py-20 md:py-32 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl mb-6" style={{ color: "var(--eko-green)" }}>Organiser</h2>
+            <h2
+              className="text-4xl md:text-5xl mb-6"
+              style={{ color: "var(--eko-green)" }}
+            >
+              Organiser
+            </h2>
           </div>
           <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
             <p>
@@ -364,14 +431,15 @@ export function About() {
               <span className="text-[var(--eko-green)] font-medium">
                 Momentum Trading Enterprises
               </span>
-              , a professional trade promotion and exhibition management company committed to
-              creating world-class platforms that support business growth and international
-              collaboration.
+              , a professional trade promotion and exhibition management company
+              committed to creating world-class platforms that support business
+              growth and international collaboration.
             </p>
             <p>
-              With strong industry experience and deep institutional knowledge in trade fair
-              management, Momentum Trading Enterprises delivers professionally managed exhibitions
-              that connect businesses, promote investment, and drive economic development.
+              With strong industry experience and deep institutional knowledge
+              in trade fair management, Momentum Trading Enterprises delivers
+              professionally managed exhibitions that connect businesses,
+              promote investment, and drive economic development.
             </p>
           </div>
         </div>
@@ -381,9 +449,14 @@ export function About() {
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl mb-4" style={{ color: "var(--eko-green)" }}>Leadership</h2>
+            <h2
+              className="text-4xl md:text-5xl mb-4"
+              style={{ color: "var(--eko-green)" }}
+            >
+              Leadership
+            </h2>
           </div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image Section */}
             <div className="order-2 lg:order-1">
@@ -410,21 +483,41 @@ export function About() {
               {/* Mobile Version - Truncated with Read More */}
               <div className="lg:hidden space-y-4 text-base text-gray-600 leading-relaxed">
                 <p>
-                  Henry Anwansedo has built a diverse professional career spanning finance, trade promotion, and exhibition development. He began his professional journey with Agusto & Co., one of Nigeria's leading rating agencies, where he gained valuable experience in financial analysis and corporate advisory. He subsequently worked with Sterling Bank, further strengthening his expertise in the financial services sector.
+                  Henry Anwansedo has built a diverse professional career
+                  spanning finance, trade promotion, and exhibition development.
+                  He began his professional journey with Agusto & Co., one of
+                  Nigeria's leading rating agencies, where he gained valuable
+                  experience in financial analysis and corporate advisory. He
+                  subsequently worked with Sterling Bank, further strengthening
+                  his expertise in the financial services sector.
                 </p>
                 {isExpanded && (
                   <>
                     <p>
-                      He later joined the Lagos Chamber of Commerce and Industry, where he played a significant role in trade promotion and exhibition development.
+                      He later joined the Lagos Chamber of Commerce and
+                      Industry, where he played a significant role in trade
+                      promotion and exhibition development.
                     </p>
                     <p>
-                      Following this, he worked with the Lagos International Trade Fair Complex as a consultant, where he supported efforts to develop and mobilize stakeholders for the Nigeria International Trade Fair.
+                      Following this, he worked with the Lagos International
+                      Trade Fair Complex as a consultant, where he supported
+                      efforts to develop and mobilize stakeholders for the
+                      Nigeria International Trade Fair.
                     </p>
                     <p>
-                      A graduate of Accounting from Lead City University, Ibadan, Oyo State, Nigeria and an alumnus of  2019 JICA Training Programme on Financial Access for Small and Medium Enterprises (SMEs) Promotion in Japan, which further strengthened his capacity in SME development and trade facilitation.
+                      A graduate of Accounting from Lead City University,
+                      Ibadan, Oyo State, Nigeria and an alumnus of 2019 JICA
+                      Training Programme on Financial Access for Small and
+                      Medium Enterprises (SMEs) Promotion in Japan, which
+                      further strengthened his capacity in SME development and
+                      trade facilitation.
                     </p>
                     <p>
-                      Driven by a strong passion for economic development and enterprise growth, Henry leads the Eko International Trade Expo with a vision to build a globally recognised trade platform that promotes Nigerian businesses while fostering international partnerships.
+                      Driven by a strong passion for economic development and
+                      enterprise growth, Henry leads the Eko International Trade
+                      Expo with a vision to build a globally recognised trade
+                      platform that promotes Nigerian businesses while fostering
+                      international partnerships.
                     </p>
                   </>
                 )}
@@ -433,13 +526,18 @@ export function About() {
                   className="text-[var(--eko-green)] hover:text-[var(--eko-blue)] transition-colors font-medium inline-flex items-center gap-1"
                 >
                   {isExpanded ? "Read Less" : "Read More"}
-                  <svg 
-                    className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
+                  <svg
+                    className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
               </div>
@@ -447,22 +545,40 @@ export function About() {
               {/* Desktop Version - Full Bio */}
               <div className="hidden lg:block space-y-4 text-base text-gray-600 leading-relaxed">
                 <p>
-                  Henry Anwansedo has built a diverse professional career spanning finance, trade promotion, and exhibition development.
+                  Henry Anwansedo has built a diverse professional career
+                  spanning finance, trade promotion, and exhibition development.
                 </p>
                 <p>
-                  He began his professional journey with Agusto & Co., one of Nigeria's leading rating agencies, where he gained valuable experience in financial analysis and corporate advisory. He subsequently worked with Sterling Bank, further strengthening his expertise in the financial services sector.
+                  He began his professional journey with Agusto & Co., one of
+                  Nigeria's leading rating agencies, where he gained valuable
+                  experience in financial analysis and corporate advisory. He
+                  subsequently worked with Sterling Bank, further strengthening
+                  his expertise in the financial services sector.
                 </p>
                 <p>
-                  He later joined the Lagos Chamber of Commerce and Industry, where he played a significant role in trade promotion and exhibition development.
+                  He later joined the Lagos Chamber of Commerce and Industry,
+                  where he played a significant role in trade promotion and
+                  exhibition development.
                 </p>
                 <p>
-                  Following this, he worked with the Lagos International Trade Fair Complex as a consultant, where he supported efforts to develop and mobilize stakeholders for the Nigeria International Trade Fair.
+                  Following this, he worked with the Lagos International Trade
+                  Fair Complex as a consultant, where he supported efforts to
+                  develop and mobilize stakeholders for the Nigeria
+                  International Trade Fair.
                 </p>
                 <p>
-                  A graduate of Accounting from Lead City University, Ibadan, Oyo State, Nigeria and an alumnus of  2019 JICA Training Programme on Financial Access for Small and Medium Enterprises (SMEs) Promotion in Japan, which further strengthened his capacity in SME development and trade facilitation.
+                  A graduate of Accounting from Lead City University, Ibadan,
+                  Oyo State, Nigeria and an alumnus of 2019 JICA Training
+                  Programme on Financial Access for Small and Medium Enterprises
+                  (SMEs) Promotion in Japan, which further strengthened his
+                  capacity in SME development and trade facilitation.
                 </p>
                 <p>
-                  Driven by a strong passion for economic development and enterprise growth, Henry leads the Eko International Trade Expo with a vision to build a globally recognised trade platform that promotes Nigerian businesses while fostering international partnerships.
+                  Driven by a strong passion for economic development and
+                  enterprise growth, Henry leads the Eko International Trade
+                  Expo with a vision to build a globally recognised trade
+                  platform that promotes Nigerian businesses while fostering
+                  international partnerships.
                 </p>
               </div>
             </div>
@@ -474,7 +590,12 @@ export function About() {
       <section className="py-20 md:py-32 bg-white">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl mb-4" style={{ color: "var(--eko-green)" }}>Event Poster</h2>
+            <h2
+              className="text-4xl md:text-5xl mb-4"
+              style={{ color: "var(--eko-green)" }}
+            >
+              Event Poster
+            </h2>
             <p className="text-gray-600 text-lg">
               Complete event information at a glance
             </p>
@@ -482,7 +603,7 @@ export function About() {
           <div className="rounded-lg overflow-hidden shadow-2xl">
             <ImageWithFallback
               src={eventPoster}
-              alt="EKO International Trade Expo 2026 - September 22-26, Police College Ikeja"
+              alt="EKO International Trade Expo 2026 - September 22-26, Eridan-space (Testing Ground), Alausa, Ikeja"
               className="w-full h-auto"
             />
           </div>

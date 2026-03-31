@@ -3,7 +3,10 @@ import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
 import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import venueOne from "../../assets/images/new-venue.png";
+import venueTwo from "../../assets/images/4613.jpg";
 import { Link } from "react-router";
+import { API_BASE_URL } from "../config/api";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -14,21 +17,44 @@ export function Contact() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would send email via backend
-    console.log("Contact form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
+    setSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    }, 3000);
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.message || "Failed to send message");
+      }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      }, 2500);
+    } catch (err) {
+      console.error("Contact message failed:", err);
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -46,7 +72,7 @@ export function Contact() {
     {
       icon: MapPin,
       title: "Venue",
-      details: ["Police College, Ikeja", "Lagos State, Nigeria"],
+      details: ["Eridan-space (Testing Ground)", "Obafemi Awolowo Way, Alausa, Ikeja, Lagos State"],
       color: "var(--eko-green)",
     },
     {
@@ -194,6 +220,11 @@ export function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {submitError && (
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {submitError}
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm mb-2">
@@ -265,10 +296,11 @@ export function Contact() {
 
               <button
                 type="submit"
+                disabled={submitting}
                 className="w-full bg-[var(--eko-green)] text-white py-4 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
                 <Send className="h-5 w-5" />
-                Send Message
+                {submitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           )}
@@ -286,8 +318,24 @@ export function Contact() {
               Find Us
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Visit us at the Police College, Ikeja, Lagos State
+              Visit us at Eridan-space (Testing Ground), Obafemi Awolowo Way, Alausa, Ikeja, Lagos State
             </p>
+          </div>
+
+          {/* Venue images */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 max-w-4xl mx-auto">
+            <img
+              src={venueOne}
+              alt="Event venue - Eridan-space (Testing Ground), Alausa, Ikeja"
+              className="w-full rounded-xl shadow-lg object-cover"
+              loading="lazy"
+            />
+            <img
+              src={venueTwo}
+              alt="Event venue - Eridan-space (Testing Ground), Alausa, Ikeja"
+              className="w-full rounded-xl shadow-lg object-cover"
+              loading="lazy"
+            />
           </div>
 
           <div className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200">
@@ -301,7 +349,7 @@ export function Contact() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Police College Ikeja Location"
+                title="Eridan-space (Testing Ground) Location"
               ></iframe>
             </div>
 
@@ -317,7 +365,7 @@ export function Contact() {
                 <div>
                   <h4 className="mb-1 text-gray-900">Event Venue</h4>
                   <p className="text-sm text-gray-600">
-                    Police College, Ikeja, Lagos State, Nigeria
+                    Eridan-space (Testing Ground) Obafemi Awolowo Way, Alausa, Ikeja, Lagos State
                   </p>
                 </div>
               </div>
@@ -327,7 +375,7 @@ export function Contact() {
           {/* Directions Link */}
           <div className="text-center mt-6">
             <a
-              href="https://www.google.com/maps/dir//Police+College+Ikeja+Lagos"
+              href="https://www.google.com/maps/dir//Eridan-space+Testing+Ground+Obafemi+Awolowo+Way+Alausa+Ikeja+Lagos"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm hover:underline"

@@ -401,14 +401,14 @@ export function SignUp() {
                   >
                     I agree to the{" "}
                     <Link
-                      to="/terms"
+                      to="/contact"
                       className="text-[var(--eko-green)] hover:underline"
                     >
                       Terms and Conditions
                     </Link>{" "}
                     and{" "}
                     <Link
-                      to="/privacy"
+                      to="/contact"
                       className="text-[var(--eko-green)] hover:underline"
                     >
                       Privacy Policy

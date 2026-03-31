@@ -1,8 +1,8 @@
 import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
 import henryImage from "../../assets/images/bcee3f0d9fc7a6049ccf917f73b49ec8792df57a.png";
-import reginaImage from "../../assets/images/64f840094eb57bd45c7f3516c3f86bc1e5792961.png";
-import fatokiImage from "../../assets/images/fa9a28c12456029b49ef79c17c4f54bedb071111.png";
+import reginaImage from "../../assets/images/ReginaBamaiyi.jpeg";
+import fatokiImage from "../../assets/images/Fatoki.jpeg";
 import { Link } from "react-router";
 
 export function Team() {
@@ -11,7 +11,7 @@ export function Team() {
       name: "Henry Anwansedo",
       role: "Founder and Managing Director",
       image: henryImage,
-      color: "var(--eko-green)",
+      color: "var(--eko-blue)",
       responsibilities: [
         "Overall leadership and strategic direction of the EKO International Trade Expo",
         "Setting the vision and ensuring alignment with national and international trade objectives",
@@ -23,7 +23,7 @@ export function Team() {
       name: "Fatoki Abiodun",
       role: "Operations & Logistics Manager",
       image: fatokiImage,
-      color: "var(--eko-orange)",
+      color: "var(--eko-blue)",
       responsibilities: [
         "Day-to-day operational planning and execution",
         "Coordinating venue logistics and exhibitor setup",
@@ -32,15 +32,15 @@ export function Team() {
       ],
     },
     {
-      name: "Dr. Regina Bamayi",
+      name: "Regina Bamayi",
       role: "Policy, Government Relations & Strategic Advisory Lead",
       image: reginaImage,
       color: "var(--eko-blue)",
       responsibilities: [
-        "Liaison with government ministries, agencies, and diplomatic missions",
-        "Ensuring policy compliance and regulatory approvals",
-        "Facilitating high-level government participation and support",
-        "Strategic advisory on trade policy and international relations",
+        "Leading engagement with government ministries, regulatory agencies, and diplomatic missions to strengthen collaboration on trade, enterprise development, and investment initiatives.",
+        "Providing strategic guidance on policy alignment, regulatory frameworks, and compliance to ensure programmes and partnerships operate effectively within national and international policy environments.",
+        "Facilitating high-level government participation, institutional partnerships, and stakeholder engagement that support the success of trade and investment platforms.",
+        "Offering strategic advisory on trade policy, SME development, and international cooperation, drawing on extensive experience in enterprise development and public sector engagement.",
       ],
     },
   ];

@@ -1,8 +1,7 @@
 import { Calendar, Clock, MapPin, Users, Award, Presentation, Coffee, Utensils, Handshake, PartyPopper } from "lucide-react";
-// Placeholder assets (replace with actual exports when using Figma/Make)
-const logo = "https://placehold.co/400x200/0d9488/ffffff?text=EKO+Expo+Logo";
-const heroBackground = "https://images.unsplash.com/photo-1760001551764-14eddf965019?w=1920&q=80";
 import { Link } from "react-router";
+import heroBackground from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
+import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import { useState } from "react";
 import { motion } from "motion/react";
 

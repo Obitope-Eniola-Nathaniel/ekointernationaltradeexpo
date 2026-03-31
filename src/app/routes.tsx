@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 
@@ -14,6 +14,7 @@ const Login = lazy(() => import("./pages/Login").then((m) => ({ default: m.Login
 const FAQ = lazy(() => import("./pages/FAQ").then((m) => ({ default: m.FAQ })));
 const Schedule = lazy(() => import("./pages/Schedule").then((m) => ({ default: m.Schedule })));
 const Gallery = lazy(() => import("./pages/Gallery").then((m) => ({ default: m.Gallery })));
+const Countdown = lazy(() => import("./pages/Countdown").then((m) => ({ default: m.Countdown })));
 const NotFound = lazy(() => import("./pages/NotFound").then((m) => ({ default: m.NotFound })));
 const AdminLogin = lazy(() => import("./admin/AdminLogin").then((m) => ({ default: m.AdminLogin })));
 const AdminLayout = lazy(() => import("./admin/AdminLayout").then((m) => ({ default: m.AdminLayout })));
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "about", Component: About },
+      { path: "countdown", Component: Countdown },
       { path: "sponsors", Component: Sponsors },
       { path: "register", Component: Register },
       { path: "contact", Component: Contact },
@@ -51,6 +53,7 @@ export const router = createBrowserRouter([
     path: "/admin",
     Component: AdminLayout,
     children: [
+      { index: true, element: <Navigate to="/admin/dashboard" replace /> },
       { path: "dashboard", Component: Dashboard },
       { path: "registrations", Component: Registrations },
       { path: "exhibitors", Component: Exhibitors },
