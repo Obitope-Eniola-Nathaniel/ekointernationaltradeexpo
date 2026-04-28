@@ -28,6 +28,7 @@ import {
   CheckCircle2,
   Star,
   Phone,
+  Download,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config/api";
@@ -43,8 +44,10 @@ import marketplaceImage from "../../assets/images/46f98dc36d495776547edc6a4a7529
 import innovationImage from "../../assets/images/1515d8d3bed41fb6e1826ad5af6f2a1962c49f3c.png";
 import connectionsImage from "../../assets/images/c73d872ff89058d703832a96a0329cd39c4df152.png";
 import smeImage from "../../assets/images/c292bf6e3ace4d46137d89a0c473a4685e002f5f.png";
+import prexImage from "../../assets/images/prex.jpeg";
 import venueOne from "../../assets/images/new-venue.png";
 import venueTwo from "../../assets/images/4613.jpg";
+import eiteProspectusPdf from "../../assets/images/Eko International Trade Expo 2026 ProspectusFULL.pdf";
 
 export function Home() {
   // Countdown Timer State
@@ -150,6 +153,17 @@ export function Home() {
     { label: "Hours", value: timeLeft.hours, color: "var(--eko-orange)" },
     { label: "Minutes", value: timeLeft.minutes, color: "var(--eko-blue)" },
     { label: "Seconds", value: timeLeft.seconds, color: "var(--eko-cyan)" },
+  ];
+
+  const sponsorCards = [
+    { tier: "Platinum", label: "Sponsor Logo", color: "var(--eko-green)" },
+    { tier: "Platinum", label: "Sponsor Logo", color: "var(--eko-green)" },
+    { tier: "Gold", label: "Sponsor Logo", color: "var(--eko-orange)" },
+    { tier: "Gold", label: "Sponsor Logo", color: "var(--eko-orange)" },
+    { tier: "Silver", label: "Partner Logo", color: "var(--eko-blue)" },
+    { tier: "Silver", label: "Partner Logo", color: "var(--eko-blue)" },
+    { tier: "Bronze", label: "Partner Logo", color: "var(--eko-cyan)" },
+    { tier: "Bronze", label: "Partner Logo", color: "var(--eko-cyan)" },
   ];
 
   return (
@@ -311,7 +325,10 @@ export function Home() {
                 </p>
                 <div className="mt-3 flex items-center justify-center gap-2 text-white/95 text-sm">
                   <MapPin className="h-4 w-4 flex-shrink-0" />
-                  <span>Eridan-space (Testing Ground) Obafemi Awolowo Way, Alausa, Ikeja, Lagos State</span>
+                  <span>
+                    Eridan-space (Testing Ground) Obafemi Awolowo Way, Alausa,
+                    Ikeja, Lagos State
+                  </span>
                 </div>
               </div>
               <div className="bg-gradient-to-br from-[var(--eko-orange)] to-[var(--eko-yellow)] rounded-xl p-6 text-white text-center">
@@ -409,15 +426,21 @@ export function Home() {
       <section className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 md:p-8 border-2 border-gray-200 shadow-xl">
+            <a
+              href={eiteProspectusPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open EITE prospectus in a new tab"
+              className="block bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 md:p-8 border-2 border-gray-200 shadow-xl hover:shadow-2xl transition-shadow"
+            >
               <img
                 src={eventPoster}
                 alt="EKO International Trade Expo 2026 - September 22-26, Eridan-space (Testing Ground), Alausa, Ikeja"
                 className="w-full h-auto rounded-xl"
                 loading="lazy"
               />
-            </div>
-            <div className="mt-8 text-center">
+            </a>
+            <div className="mt-8 text-center flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
                 className="inline-flex items-center justify-center gap-2 bg-[var(--eko-green)] text-white px-8 py-4 rounded-lg hover:opacity-90 transition-opacity text-lg"
@@ -425,6 +448,14 @@ export function Home() {
                 Book Your Space Now - Early Bird Discount!
                 <ArrowRight className="h-5 w-5" />
               </Link>
+              <a
+                href={eiteProspectusPdf}
+                download="Eko International Trade Expo 2026 ProspectusFULL.pdf"
+                className="inline-flex items-center justify-center gap-2 bg-[var(--eko-orange)] text-white px-8 py-4 rounded-lg hover:opacity-90 transition-opacity text-lg"
+              >
+                Download EITE Prospectus
+                <Download className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </div>
@@ -810,189 +841,31 @@ export function Home() {
 
           {/* Scrolling Track */}
           <div className="flex gap-8 animate-scroll">
-            {/* First Set of Logos */}
-            <div className="flex gap-8 flex-shrink-0">
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
+            {[...Array(2)].map((_, setIndex) => (
+              <div key={setIndex} className="flex gap-8 flex-shrink-0">
+                {sponsorCards.map((sponsor, sponsorIndex) => (
                   <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-green)" }}
+                    key={`${setIndex}-${sponsorIndex}`}
+                    className="w-40 h-24 bg-gray-100 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                   >
-                    Platinum
+                    <img
+                      src={prexImage}
+                      alt={`${sponsor.tier} sponsor`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    {/* 
+                      <div className="text-center text-gray-400">
+                        <div className="text-xs mb-2" style={{ color: sponsor.color }}>
+                          {sponsor.tier}
+                        </div>
+                        <div className="text-xs mt-2">{sponsor.label}</div>
+                      </div>
+                    */}
                   </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
+                ))}
               </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-green)" }}
-                  >
-                    Platinum
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-orange)" }}
-                  >
-                    Gold
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-orange)" }}
-                  >
-                    Gold
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-blue)" }}
-                  >
-                    Silver
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-blue)" }}
-                  >
-                    Silver
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-cyan)" }}
-                  >
-                    Bronze
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-cyan)" }}
-                  >
-                    Bronze
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Duplicate Set for Seamless Loop */}
-            <div className="flex gap-8 flex-shrink-0">
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-green)" }}
-                  >
-                    Platinum
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-green)" }}
-                  >
-                    Platinum
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-orange)" }}
-                  >
-                    Gold
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-orange)" }}
-                  >
-                    Gold
-                  </div>
-                  <div className="text-xs">Sponsor Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-blue)" }}
-                  >
-                    Silver
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-blue)" }}
-                  >
-                    Silver
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-cyan)" }}
-                  >
-                    Bronze
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-              <div className="w-40 h-24 bg-gray-100 rounded-lg flex items-center justify-center p-4 hover:shadow-lg transition-shadow">
-                <div className="text-center text-gray-400">
-                  <div
-                    className="text-xs mb-1"
-                    style={{ color: "var(--eko-cyan)" }}
-                  >
-                    Bronze
-                  </div>
-                  <div className="text-xs">Partner Logo</div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 

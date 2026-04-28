@@ -1,11 +1,22 @@
 import { FileText, Download, FileImage, File } from "lucide-react";
 import logo from "../../assets/images/d0244ad2b6eb8456c544a50c842971c30ea8e285.png";
 import heroBackground from "../../assets/images/07acd66eead001dce9d6ffedbf0456f7be69a211.png";
+import eiteProspectusPdf from "../../assets/images/Eko International Trade Expo 2026 ProspectusFULL.pdf";
 import { Link } from "react-router";
 import { motion } from "motion/react";
 
 export function Downloads() {
   const downloadItems = [
+    {
+      title: "EITE Prospectus",
+      description:
+        "Complete prospectus for EKO International Trade Expo 2026 with all details",
+      fileType: "PDF",
+      size: "3.5 MB",
+      icon: FileText,
+      color: "var(--eko-green)",
+      filePath: eiteProspectusPdf,
+    },
     {
       title: "Event Brochure",
       description:
@@ -13,7 +24,7 @@ export function Downloads() {
       fileType: "PDF",
       size: "2.5 MB",
       icon: FileText,
-      color: "var(--eko-green)",
+      color: "var(--eko-orange)",
     },
     {
       title: "Sponsorship Prospectus",
@@ -22,7 +33,7 @@ export function Downloads() {
       fileType: "PDF",
       size: "1.8 MB",
       icon: FileText,
-      color: "var(--eko-orange)",
+      color: "var(--eko-yellow)",
     },
     {
       title: "Exhibition Booth Plans",
@@ -58,12 +69,23 @@ export function Downloads() {
     },
   ];
 
-  const handleDownload = (title: string) => {
-    // In a real application, this would trigger actual file download
-    console.log(`Downloading: ${title}`);
-    alert(
-      `Download started: ${title}\n\nNote: This is a demo. In production, this would download the actual file.`,
-    );
+  const handleDownload = (title: string, filePath?: string) => {
+    if (filePath) {
+      // Download actual file by creating a download link
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = `${title}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // Fallback for demo items
+      console.log(`Downloading: ${title}`);
+      const link = document.createElement("a");
+      link.href = filePath || "#";
+      link.target = "_blank";
+      link.click();
+    }
   };
 
   return (
@@ -164,7 +186,7 @@ export function Downloads() {
                 </div>
                 <p className="text-sm text-gray-600 mb-4">{item.description}</p>
                 <button
-                  onClick={() => handleDownload(item.title)}
+                  onClick={() => handleDownload(item.title, item.filePath)}
                   className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 px-4 rounded-lg transition-colors"
                 >
                   <Download className="h-4 w-4" />
