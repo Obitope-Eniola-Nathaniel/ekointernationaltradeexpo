@@ -168,6 +168,32 @@ export function Home() {
 
   return (
     <div className="min-h-screen">
+      <motion.a
+        href={eiteProspectusPdf}
+        download="Eko International Trade Expo 2026 ProspectusFULL.pdf"
+        aria-label="Download EITE 2026 prospectus PDF"
+        className="fixed bottom-5 right-4 md:bottom-6 md:right-6 z-40 inline-flex items-center gap-2 rounded-full bg-[var(--eko-orange)] text-white px-4 py-3 shadow-xl hover:opacity-95 transition-opacity"
+        animate={{
+          scale: [1, 1.04, 1],
+          boxShadow: [
+            "0 10px 25px -5px rgba(0,0,0,0.35)",
+            "0 0 0 8px rgba(255,255,255,0.12)",
+            "0 10px 25px -5px rgba(0,0,0,0.35)",
+          ],
+        }}
+        transition={{
+          duration: 1.6,
+          repeat: Infinity,
+          repeatDelay: 5,
+          ease: "easeInOut",
+        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        <Download className="h-4 w-4" />
+        <span className="hidden sm:inline text-sm">Prospectus PDF</span>
+      </motion.a>
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[var(--eko-green)] to-[var(--eko-blue)] text-white overflow-hidden">
         {/* Background Image */}
@@ -238,6 +264,32 @@ export function Home() {
                 A premier platform connecting businesses, investors, and
                 entrepreneurs across Nigeria and global markets.
               </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.7, ease: "easeOut" }}
+                className="mb-4 max-w-2xl rounded-xl border border-white/35 bg-white/10 backdrop-blur-sm px-4 py-3 shadow-lg"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-wider text-yellow-200">
+                      EITE 2026 Prospectus
+                    </p>
+                    <p className="text-sm sm:text-base text-white">
+                      Download the full expo PDF guide.
+                    </p>
+                  </div>
+                  <a
+                    href={eiteProspectusPdf}
+                    download="Eko International Trade Expo 2026 ProspectusFULL.pdf"
+                    className="inline-flex items-center justify-center gap-2 bg-[var(--eko-orange)] text-white px-4 py-2.5 rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap"
+                  >
+                    Download PDF
+                    <Download className="h-4 w-4" />
+                  </a>
+                </div>
+              </motion.div>
 
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
