@@ -29,6 +29,7 @@ import {
   Star,
   Phone,
   Download,
+  ExternalLink,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config/api";
@@ -48,6 +49,15 @@ import prexImage from "../../assets/images/prex.jpeg";
 import venueOne from "../../assets/images/new-venue.png";
 import venueTwo from "../../assets/images/4613.jpg";
 import eiteProspectusPdf from "../../assets/images/Eko International Trade Expo 2026 ProspectusFULL.pdf";
+import { NEWS_POSTS } from "../../data/newsPosts";
+import { formatDate } from "../../utils/formatters";
+
+const latestNewsPosts = [...NEWS_POSTS]
+  .sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  )
+  .slice(0, 3);
 
 export function Home() {
   // Countdown Timer State
@@ -1075,6 +1085,96 @@ export function Home() {
                   Government liaison and strategic advisory
                 </p>
               </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest News */}
+      <section className="py-16 md:py-20 bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2
+              className="text-3xl md:text-4xl mb-4"
+              style={{ color: "var(--eko-green)" }}
+            >
+              Latest News
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Press coverage, updates, and stories from the EKO International
+              Trade Expo
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {latestNewsPosts.map((post) => (
+              <article
+                key={post.slug}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col"
+              >
+                <Link to={`/news/${post.slug}`} className="block">
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.imageAlt}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                </Link>
+
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                    <Calendar className="h-4 w-4" />
+                    <time dateTime={post.publishedAt}>
+                      {formatDate(post.publishedAt)}
+                    </time>
+                  </div>
+
+                  <h3 className="text-xl mb-3 leading-snug">
+                    <Link
+                      to={`/news/${post.slug}`}
+                      className="hover:text-[var(--eko-green)] transition-colors"
+                    >
+                      {post.title}
+                    </Link>
+                  </h3>
+
+                  <p className="text-gray-600 mb-6 flex-1 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Link
+                      to={`/news/${post.slug}`}
+                      className="inline-flex items-center justify-center gap-2 bg-[var(--eko-green)] text-white px-4 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm"
+                    >
+                      Read Story
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <a
+                      href={post.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 border border-gray-300 text-gray-700 px-4 py-2.5 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+                    >
+                      {post.source}
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/news"
+              className="inline-flex items-center gap-2 text-sm hover:gap-3 transition-all"
+              style={{ color: "var(--eko-green)" }}
+            >
+              View All News
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
